@@ -31,15 +31,6 @@ public class CarRekogService {
 
   public static void main(String[] args) throws IOException {
     
-    // create a group with s3readonly, rekogservicerole, sqs roles.
-    // create user with programmatic access and add this user to the group
-    // command prompt or on ec2 instance, enter "aws configure" and enter the secret and
-    // programmatic access keys.
-    // configure java on ec2 free tier instance.
-    // upload the jar files generated from this program and modify the permissions using chmod
-    // command.
-
-
     AWSCredentials credentials = null;
     try {
       credentials = new ProfileCredentialsProvider("default").getCredentials();
