@@ -42,8 +42,8 @@ public class CarTextRekogWorker {
           e);
     }
 
-    String bucketName = "njit-cs-643";
-    String car = "car";
+    final String bucketName = "njit-cs-643";
+    final String car = "car";
 
     AmazonSQS sqs = AmazonSQSClientBuilder.standard().withCredentials(credentialsProvider)
         .withRegion(Regions.US_EAST_1).build();
@@ -124,25 +124,25 @@ public class CarTextRekogWorker {
       System.out.println("text rekognitiion completed successfully");
 
     } catch (AmazonServiceException ase) {
-      System.out.println("Caught an AmazonServiceException, which means your request made it "
+      System.err.println("Caught an AmazonServiceException, which means your request made it "
           + "to Amazon SQS, but was rejected with an error response for some reason.");
-      System.out.println("Error Message:    " + ase.getMessage());
-      System.out.println("HTTP Status Code: " + ase.getStatusCode());
-      System.out.println("AWS Error Code:   " + ase.getErrorCode());
-      System.out.println("Error Type:       " + ase.getErrorType());
-      System.out.println("Request ID:       " + ase.getRequestId());
+      System.err.println("Error Message:    " + ase.getMessage());
+      System.err.println("HTTP Status Code: " + ase.getStatusCode());
+      System.err.println("AWS Error Code:   " + ase.getErrorCode());
+      System.err.println("Error Type:       " + ase.getErrorType());
+      System.err.println("Request ID:       " + ase.getRequestId());
     } catch (AmazonClientException ace) {
       System.out.println("Caught an AmazonClientException, which means the client encountered "
           + "a serious internal problem while trying to communicate with SQS, such as not "
           + "being able to access the network.");
-      System.out.println("Error Message: " + ace.getMessage());
+      System.err.println("Error Message: " + ace.getMessage());
     }
   }
 
   protected static void printObject(Object object, String fileName) {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     new FileOperations().saveFile(fileName, gson.toJson(object));
-    System.out.println(gson.toJson(object));
+//    System.out.println(gson.toJson(object));
   }
 
   private static String getNameFromUrl(String queueUrl) {
