@@ -10,11 +10,11 @@ This is a sample that demonstrates an image recognition pipeline in AWS, using t
 *   You must be signed up to use Amazon SQS. For more information on Amazon SQS, see [http://aws.amazon.com/sqs](http://aws.amazon.com/sqs).
 *   You must be signed up to use Amazon Rekognition. For more information on Amazon SQS, see [https://aws.amazon.com/rekognition/](https://aws.amazon.com/rekognition/).
 
-## Running the Sample
+### Running the Sample
 
-IAM setup
+## IAM setup
      create a group with s3readonly, rekogservicerole, sqs roles.
-     create user with programmatic access and add assign this user to the group.
+     create user with programmatic access and assign this user to this group.
 
 Following are the basic steps for running the this Car Rekog Worker and Service Programs:
 
@@ -42,13 +42,13 @@ ec2-user@public-ip
   ```
 
 4.  check  java is installed and configured in ec2 instance. otherwise configure it using below commands.
-	`sudo yum update -y
+	```sudo yum update -y
 	 sudo yum list | grep openjdk
 	 sudo yum install java-1.8.0-openjdk.x86_64 -y
 	 sudo update-alternatives --config java
 	 pwd
 	 ls -ltr
-	 java -version`
+	 java -version```
 
 5. create the worker jar file by updating the pom.xml file by replacing all 3 occurances
 
@@ -66,29 +66,29 @@ ec2-user@public-ip
 	
 6. using winscp copy the jar file from target directory to ec2 instance and modify the permssions to execute the jar file.
 
-	`pwd
+	```pwd
 	 ls -ltr
 	 chmod +x worker.jar
 	 ls -ltr
-	 java -jar worker.jar`
+	 java -jar worker.jar```
 
 7. worker program is running and polling on "detected-cars.fifo", as soon as the message arrives to the queue, this program reads the message
 and gets the object from s3 bucket, and sends it to the text rekog enginer, once the text is rekognized and it keeps track of texts rekognized
 in hashmap, and stores the objects to the ec2 instance(for testing purpose) and deletes the messages from queue. processing completes when there is a 
 -1 message received from the queue, worker writes the status to output directory output.txt file and close the program.
 
-	`pwd
+	```pwd
 	 cd output
 	 cat *output.txt
-	 cd ..`
+	 cd ..```
 
 8. once the program terminates clean up the output directory and images stored on file system using the below commands.
 
-	 `pwd
+	 ```pwd
 	 ls -lrt
 	 rm -rf output
 	 rm -rf *.jpg
-	 ls -lrt`
+	 ls -lrt```
 	 
 9. to terminate this program use ctrl + c.
 
@@ -106,11 +106,11 @@ in hashmap, and stores the objects to the ec2 instance(for testing purpose) and 
 		
 12. using winscp copy the jar file from target directory to ec2 instance and modify the permssions to execute the jar file.
 
-	`pwd
+	```pwd
 	 ls -ltr
 	 chmod +x service.jar
 	 ls -ltr
-	 java -jar service.jar`	
+	 java -jar service.jar```
 	 
 13 service jar program reads the images from njit-cs-643 bucket and send it to the rekog service for object and scene detection with minimum
 confidence of 90 percent, the images with car labels having 90 percent confidence are put into the queue to be picked up by another instance
