@@ -1,6 +1,6 @@
 #AWS NJIT CS 643 Car Recognition Service
 
-This is a sample that demonstrates an image recognition pipeline in AWS, using two EC2 instances, S3, SQS,and Rekognition using the AWS SDK for Java.
+This is a poc app that demonstrates an image recognition pipeline in AWS, using two EC2 instances, S3, SQS,and Rekognition using the AWS SDK for Java.
 
 ## Prerequisites
 
